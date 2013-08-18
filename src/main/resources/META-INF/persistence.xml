@@ -63,6 +63,7 @@
 		<class>vrds.model.MetaAttribute</class>
 		<class>vrds.model.StringValue</class>
 		<class>vrds.model.RepoItemValue</class>
+		<class>vrds.model.AttributeValue</class>
 
 		<properties>
 			<!-- Properties for Hibernate -->

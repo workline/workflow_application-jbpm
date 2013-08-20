@@ -28,6 +28,7 @@ import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.jbpm.persistence.JpaProcessPersistenceContextManager;
 import org.jbpm.persistence.jta.ContainerManagedTransactionManager;
+import org.slf4j.Logger;
 
 import workflow.domain.Person;
 import workflow.history.HistoryLogger;
@@ -58,13 +59,19 @@ public class CMTEngine implements Engine {
     KnowledgeBuilder knowledgeBuilder;
     KnowledgeBase knowledgeBase;
 
+    @Inject
+    Logger logger;
+
     @PostConstruct
     public void init() {
         // Build knowledge base
+        long start = System.currentTimeMillis();
         knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
         knowledgeBuilder.add(ResourceFactory.newClassPathResource(PROCESS_DEFINITION_DIRECTORY_PATH + PROCESS_NAME + "." + PROCESS_EXTENSION),
                 ResourceType.BPMN2);
         knowledgeBase = knowledgeBuilder.newKnowledgeBase();
+        long end = System.currentTimeMillis();
+        logger.info(CMTEngine.class.getSimpleName() + " init duration: " + (end - start) + " ms");
     }
 
     @Asynchronous

@@ -15,6 +15,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.TransactionManager;
 
+import loggee.api.Logged;
+
 import org.drools.KnowledgeBase;
 import org.drools.builder.KnowledgeBuilder;
 import org.drools.builder.KnowledgeBuilderFactory;
@@ -37,6 +39,7 @@ import workflow.tmp.workitem.TmpWorkItemHandler;
 import workflow.util.Primary;
 import workflow.util.WorkflowHistory;
 
+@Logged
 @Cmt
 @Stateless
 public class CMTEngine implements Engine {

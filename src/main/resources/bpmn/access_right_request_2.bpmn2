@@ -29,6 +29,7 @@
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:endEvent id="_19" name="End">
+      <bpmn2:incoming>SequenceFlow_16</bpmn2:incoming>
       <bpmn2:terminateEventDefinition id="TerminateEventDefinition_1"/>
     </bpmn2:endEvent>
     <bpmn2:task id="Task_1" tns:taskName="TmpWorkItem" tns:displayName="Tmp Work Item" tns:icon="task.png" name="Select account">
@@ -144,6 +145,7 @@
     <bpmn2:task id="Task_6" tns:taskName="TmpWorkItem" tns:displayName="Tmp Work Item" tns:icon="task.png" name="DiscardAccessRight">
       <bpmn2:documentation id="Documentation_2">Change status from &quot;creating&quot; -> &quot;creating cancelled&quot;</bpmn2:documentation>
       <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
       <bpmn2:ioSpecification id="_InputOutputSpecification_13">
         <bpmn2:dataInput id="_DataInput_25" name="someString"/>
         <bpmn2:inputSet id="_InputSet_13" name="Input Set 13">
@@ -159,7 +161,7 @@
     <bpmn2:task id="Task_7" tns:taskName="TmpWorkItem" tns:displayName="Tmp Work Item" tns:icon="task.png" name="CreateRepoItem">
       <bpmn2:documentation id="Documentation_1">Create IssuedAccessRight RepoItem</bpmn2:documentation>
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_11</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_14</bpmn2:outgoing>
       <bpmn2:ioSpecification id="_InputOutputSpecification_14">
         <bpmn2:dataInput id="_DataInput_26" name="someString"/>
         <bpmn2:inputSet id="_InputSet_14" name="Input Set 14">
@@ -171,7 +173,8 @@
       </bpmn2:dataInputAssociation>
     </bpmn2:task>
     <bpmn2:task id="Task_8" tns:taskName="TmpWorkItem" tns:displayName="Tmp Work Item" tns:icon="task.png" name="NotifyRecipient">
-      <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_15</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_16</bpmn2:outgoing>
       <bpmn2:ioSpecification id="_InputOutputSpecification_15">
         <bpmn2:dataInput id="_DataInput_27" name="someString"/>
         <bpmn2:inputSet id="_InputSet_15" name="Input Set 15">
@@ -183,7 +186,15 @@
       </bpmn2:dataInputAssociation>
     </bpmn2:task>
     <bpmn2:sequenceFlow id="SequenceFlow_10" tns:priority="1" name="" sourceRef="Task_4" targetRef="Task_7"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_11" tns:priority="1" name="" sourceRef="Task_7" targetRef="Task_8"/>
+    <bpmn2:inclusiveGateway id="InclusiveGateway_1" name="" gatewayDirection="Diverging">
+      <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
+    </bpmn2:inclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_13" tns:priority="1" name="" sourceRef="Task_6" targetRef="InclusiveGateway_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_14" tns:priority="1" name="" sourceRef="Task_7" targetRef="InclusiveGateway_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_15" tns:priority="1" name="" sourceRef="InclusiveGateway_1" targetRef="Task_8"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_16" tns:priority="1" name="" sourceRef="Task_8" targetRef="_19"/>
   </bpmn2:process>
   <bpmn2:itemDefinition id="ItemDefinition_377" itemKind="Physical" structureRef="vrds.model.RepoItem"/>
   <bpmn2:interface id="Interface_1" implementationRef="vrds.model.RepoItem" name="RepoItem">
@@ -252,7 +263,7 @@
         <dc:Bounds height="48.0" width="48.0" x="16.0" y="16.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="_19">
-        <dc:Bounds height="48.0" width="48.0" x="23.0" y="240.0"/>
+        <dc:Bounds height="48.0" width="48.0" x="810.0" y="541.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="Task_1">
         <dc:Bounds height="50.0" width="110.0" x="320.0" y="15.0"/>
@@ -318,15 +329,30 @@
         <dc:Bounds height="50.0" width="110.0" x="490.0" y="440.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_8" bpmnElement="Task_8">
-        <dc:Bounds height="50.0" width="110.0" x="491.0" y="540.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="651.0" y="540.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_10" sourceElement="BPMNShape_Task_4" targetElement="BPMNShape_Task_7">
         <di:waypoint xsi:type="dc:Point" x="545.0" y="390.0"/>
         <di:waypoint xsi:type="dc:Point" x="545.0" y="440.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_11" bpmnElement="SequenceFlow_11" sourceElement="BPMNShape_Task_7" targetElement="BPMNShape_Task_8">
-        <di:waypoint xsi:type="dc:Point" x="545.0" y="490.0"/>
-        <di:waypoint xsi:type="dc:Point" x="546.0" y="540.0"/>
+      <bpmndi:BPMNShape id="BPMNShape_InclusiveGateway_1" bpmnElement="InclusiveGateway_1">
+        <dc:Bounds height="50.0" width="50.0" x="680.0" y="440.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_13" bpmnElement="SequenceFlow_13" sourceElement="BPMNShape_Task_6" targetElement="BPMNShape_InclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="705.0" y="390.0"/>
+        <di:waypoint xsi:type="dc:Point" x="705.0" y="440.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_14" bpmnElement="SequenceFlow_14" sourceElement="BPMNShape_Task_7" targetElement="BPMNShape_InclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="600.0" y="465.0"/>
+        <di:waypoint xsi:type="dc:Point" x="680.0" y="465.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_15" bpmnElement="SequenceFlow_15" sourceElement="BPMNShape_InclusiveGateway_1" targetElement="BPMNShape_Task_8">
+        <di:waypoint xsi:type="dc:Point" x="705.0" y="491.0"/>
+        <di:waypoint xsi:type="dc:Point" x="706.0" y="540.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_16" bpmnElement="SequenceFlow_16" sourceElement="BPMNShape_Task_8" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="761.0" y="565.0"/>
+        <di:waypoint xsi:type="dc:Point" x="810.0" y="565.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

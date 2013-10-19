@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.drools.runtime.process.ProcessInstance;
 import org.drools.runtime.process.WorkItem;
 import org.drools.runtime.process.WorkItemHandler;
 import org.drools.runtime.process.WorkItemManager;
@@ -22,6 +23,11 @@ public class TmpWorkItemHandler implements WorkItemHandler {
 
     @Override
     public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
+        System.err.println("Work item name: "+workItem.getName());
+        
+        // TODO delete
+        System.err.println("TMP: "+workItem.getParameter("tmp"));
+        
         List<EntityManager> entityManagers = thiefEntityManagerFactory.getEntityManagers();
         if (entityManagers != null) {
             for (EntityManager entityManager : entityManagers) {

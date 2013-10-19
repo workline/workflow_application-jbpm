@@ -8,8 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import loggee.api.Logged;
-import vrds.model.RepoAttributeDefinition;
-import vrds.model.RepoDefinition;
+import vrds.model.EAttributeType;
 import vrds.model.RepoItem;
 import vrds.model.RepoItemAttribute;
 import workflow.repo.service.RepoService;
@@ -18,6 +17,10 @@ import workflow.util.Primary;
 @Stateless
 @Logged
 public class PersonService {
+    private static final String PROCESS_DATA_REPO_NAME = "ProcessData";
+    private static final String FIRST_NAME_ATTRIBUTE_NAME = "First name";
+    private static final String MOTHER_ATTRIBUTE_NAME = "Mother";
+    
     @Inject
     @Primary
     private EntityManager entityManager;
@@ -27,19 +30,15 @@ public class PersonService {
     // TODO Temporary method, too specific
     public Long createRandomPerson(String name) {
 
-        RepoDefinition personRepoDefinition = repoService.getRepoDefinition("ProcessData");
-        RepoAttributeDefinition firstNameRepoAttributeDefinition = repoService.getRepoAttributeDefinition("First name");
-        RepoAttributeDefinition motherRepoAttributeDefinition = repoService.getRepoAttributeDefinition("Mother");
-
         RepoItem repo = new RepoItem();
-        repo.setDefinition(personRepoDefinition);
+        repo.setRepoName(PROCESS_DATA_REPO_NAME);
 
         RepoItemAttribute firstNameRepoAttribute = new RepoItemAttribute();
-        firstNameRepoAttribute.setDefinition(firstNameRepoAttributeDefinition);
+        firstNameRepoAttribute.setNameAndType(FIRST_NAME_ATTRIBUTE_NAME, EAttributeType.STRING);
         firstNameRepoAttribute.setValue(name);
 
         RepoItemAttribute motherRepoAttribute = new RepoItemAttribute();
-        motherRepoAttribute.setDefinition(motherRepoAttributeDefinition);
+        motherRepoAttribute.setNameAndType(MOTHER_ATTRIBUTE_NAME, EAttributeType.REPO_ITEM);
         RepoItem mom = null;
         try {
             mom = repoService.getRepo(2L);

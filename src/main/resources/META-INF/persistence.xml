@@ -55,9 +55,6 @@
 		
 		<class>workflow.model.ProcessData</class>
 
-		<class>vrds.model.RepoDefinition</class>
-	   	<class>vrds.model.RepoAttributeDefinition</class>
-	   	<class>vrds.model.MetaAttributeDefinition</class>
 		<class>vrds.model.RepoItem</class>
 		<class>vrds.model.RepoItemAttribute</class>
 		<class>vrds.model.MetaAttribute</class>

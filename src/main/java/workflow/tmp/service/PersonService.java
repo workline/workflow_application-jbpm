@@ -20,7 +20,7 @@ public class PersonService {
     private static final String PROCESS_DATA_REPO_NAME = "ProcessData";
     private static final String FIRST_NAME_ATTRIBUTE_NAME = "First name";
     private static final String MOTHER_ATTRIBUTE_NAME = "Mother";
-    
+
     @Inject
     @Primary
     private EntityManager entityManager;

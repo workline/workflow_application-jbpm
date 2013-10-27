@@ -23,11 +23,11 @@ public class TmpWorkItemHandler implements WorkItemHandler {
 
     @Override
     public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-        System.err.println("Work item name: "+workItem.getName());
-        
+        System.err.println("Work item name: " + workItem.getName());
+
         // TODO delete
-        System.err.println("TMP: "+workItem.getParameter("tmp"));
-        
+        System.err.println("TMP: " + workItem.getParameter("tmp"));
+
         List<EntityManager> entityManagers = thiefEntityManagerFactory.getEntityManagers();
         if (entityManagers != null) {
             for (EntityManager entityManager : entityManagers) {
